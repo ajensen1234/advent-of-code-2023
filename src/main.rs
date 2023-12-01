@@ -11,4 +11,5 @@ fn day1_soln() {
     let _ = day1::day1_answer(path, &mut sum);
 
     println!("Sum: {:?}", sum);
+    assert_eq!(sum, 54706);
 }

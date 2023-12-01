@@ -23,16 +23,13 @@ pub fn decode_calibration(input: &str) -> i32 {
     }
     let spelled_num_vec = find_word_number_indices(input);
     if spelled_num_vec[0].1 < first_num_index {
-        let maybe_char = std::char::from_digit(spelled_num_vec[0].0, 10);
-        match maybe_char {
+        match std::char::from_digit(spelled_num_vec[0].0, 10) {
             Some(c) => output[0] = c,
             None => {}
         }
     }
     if spelled_num_vec[1].1 > last_num_index {
-        //output[1] = std::char::from_u32_unchecked(spelled_num_vec[1].0);
-        let maybe_char = std::char::from_digit(spelled_num_vec[1].0, 10);
-        match maybe_char {
+        match std::char::from_digit(spelled_num_vec[1].0, 10) {
             Some(c) => output[1] = c,
             None => {}
         }
