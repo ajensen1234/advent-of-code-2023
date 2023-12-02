@@ -1,15 +1,31 @@
-pub use advent_of_code_2023::day1::day1;
+pub use advent_of_code_2023::day01;
+use advent_of_code_2023::day02::SingleGame;
 use std::env::current_dir;
 fn main() {
-    day1_soln();
+    //day1_soln();l
+    let file = include_str!("./day02/day02-p1.txt");
+    println!(
+        "Total Points from Example: {:?}\nPower Set Points: {:?}",
+        day02_soln(file)[0],
+        day02_soln(file)[1]
+    );
 }
-
 fn day1_soln() {
-    let path = "./src/day1/day1.csv";
+    let path = "./src/day01/day1.csv";
     println!("PWD: {:?}", current_dir());
     let mut sum: i32 = 0;
-    let _ = day1::day1_answer(path, &mut sum);
-
+    let _ = day01::day1_answer(path, &mut sum);
     println!("Sum: {:?}", sum);
     assert_eq!(sum, 54706);
+}
+
+fn day02_soln(file: &str) -> [i32; 2] {
+    let mut total_pts: i32 = 0;
+    let mut power_set_points: i32 = 0;
+    for line in file.lines() {
+        let game: SingleGame = SingleGame::new(line);
+        total_pts += game.points_from_game();
+        power_set_points += game.power_set_from_game();
+    }
+    [total_pts, power_set_points]
 }
