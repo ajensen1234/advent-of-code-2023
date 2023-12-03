@@ -1,14 +1,25 @@
 pub use advent_of_code_2023::day01;
 use advent_of_code_2023::day02::SingleGame;
+use advent_of_code_2023::day03::data_loading::Day03Data;
+use advent_of_code_2023::day03::BinaryComparison::ContiguousOnes;
 use std::env::current_dir;
 fn main() {
     //day1_soln();l
-    let file = include_str!("./day02/day02-p1.txt");
-    println!(
-        "Total Points from Example: {:?}\nPower Set Points: {:?}",
-        day02_soln(file)[0],
-        day02_soln(file)[1]
-    );
+    // let file = include_str!("./day02/day02-p1.txt");
+    // println!(
+    //     "Total Points from Example: {:?}\nPower Set Points: {:?}",
+    //     day02_soln(file)[0],
+    //     day02_soln(file)[1]
+    // );
+    //
+    let mut day03_result = ContiguousOnes::new();
+    let arr = [
+        0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1,
+    ];
+    day03_result.find_contiguous_ones(&arr);
+    let hits = vec![2, 10, 11, 13, 14, 15];
+    day03_result.find_hits(hits);
+    let day_3_data = Day03Data::new("./src/day03/day03.txt");
 }
 fn day1_soln() {
     let path = "./src/day01/day1.csv";
