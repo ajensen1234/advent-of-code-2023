@@ -10,18 +10,22 @@ impl ContiguousOnes {
             hits: Vec::new(),
         }
     }
-    pub fn find_contiguous_ones(&mut self, arr: &[u8]) {
+    pub fn find_contiguous_ones(&mut self, arr: &Vec<i32>) {
         let mut current_group_start = 0;
+        let mut in_group: bool = false;
 
         for (i, &n) in arr.iter().enumerate() {
             if n == 1 {
-                if current_group_start == 0 {
+                // if current_group_start == 0 {
+                if !in_group {
                     current_group_start = i;
+                    in_group = true;
                 }
-            } else if current_group_start != 0 {
+            } else if in_group {
+                // } else if current_group_start != 0 {
                 let group_end = i - 1;
                 self.groups.push((current_group_start, group_end));
-                current_group_start = 0;
+                in_group = false;
             }
         }
 

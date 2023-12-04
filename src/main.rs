@@ -13,7 +13,7 @@ fn main() {
     // );
     //
     let mut day03_result = ContiguousOnes::new();
-    let arr = [
+    let arr = vec![
         0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1,
     ];
     day03_result.find_contiguous_ones(&arr);
