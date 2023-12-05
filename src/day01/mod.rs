@@ -8,35 +8,31 @@ pub fn decode_calibration(input: &str) -> i32 {
     // iterate over the values in the calibration
     let mut first_num_index = 0;
     let mut last_num_index = 0;
-    let mut idx = 0;
-    for element in char_vec {
+    for (idx, element) in char_vec.iter().enumerate() {
         if element.is_numeric() {
-            output[1] = element;
+            output[1] = *element;
             last_num_index = idx;
             if !first_val_found {
-                output[0] = element;
+                output[0] = *element;
                 first_val_found = true;
                 first_num_index = idx;
             }
         }
-        idx += 1;
     }
     let spelled_num_vec = find_word_number_indices(input);
-    if spelled_num_vec[0].1 < first_num_index {
-        match std::char::from_digit(spelled_num_vec[0].0, 10) {
-            Some(c) => output[0] = c,
-            None => {}
+    if spelled_num_vec[0].1 < first_num_index as i32 {
+        if let Some(c) = std::char::from_digit(spelled_num_vec[0].0, 10) {
+            output[0] = c
         }
     }
-    if spelled_num_vec[1].1 > last_num_index {
-        match std::char::from_digit(spelled_num_vec[1].0, 10) {
-            Some(c) => output[1] = c,
-            None => {}
+    if spelled_num_vec[1].1 > last_num_index as i32 {
+        if let Some(c) = std::char::from_digit(spelled_num_vec[1].0, 10) {
+            output[1] = c
         }
     }
     let s: String = output.iter().collect();
     let int_out: i32 = s.parse().unwrap();
-    return int_out;
+    int_out
 }
 
 pub fn day1_answer(path: &str, sum: &mut i32) -> Result<(), Box<dyn Error>> {
@@ -53,14 +49,14 @@ pub fn day1_answer(path: &str, sum: &mut i32) -> Result<(), Box<dyn Error>> {
         }
     }
 
-    return Ok(());
+    Ok(())
 }
 
 pub fn find_word_number_indices(input: &str) -> Vec<(u32, i32)> {
     let mut first_num_and_index = (0, 1000);
     let mut last_num_and_index = (0, 0);
 
-    let vec_of_nums = vec![
+    let vec_of_nums = [
         "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     ];
     let mut iter = 1;
@@ -78,5 +74,5 @@ pub fn find_word_number_indices(input: &str) -> Vec<(u32, i32)> {
         iter += 1;
     }
 
-    return vec![first_num_and_index, last_num_and_index];
+    vec![first_num_and_index, last_num_and_index]
 }

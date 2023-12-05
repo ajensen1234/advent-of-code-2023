@@ -12,16 +12,11 @@ trait GameParser {
 impl SingleGame {
     pub fn new(input: &str) -> Self {
         // Here, we take in the input string representing a single game.
-        let game_string_vec: Vec<&str> = input.split(":").collect();
+        let game_string_vec: Vec<&str> = input.split(':').collect();
         let total_points = Self::parse_points(game_string_vec[0]);
         let [total_red, total_green, total_blue] = Self::parse_marbles(game_string_vec[1]);
         // assume game is not allowable to start
-        let mut allowable_game = true;
-        if (total_red <= 12) && (total_green <= 13) && (total_blue <= 14) {
-            allowable_game = true;
-        } else {
-            allowable_game = false;
-        }
+        let allowable_game = (total_red <= 12) && (total_green <= 13) && (total_blue <= 14);
 
         Self {
             total_points,
@@ -54,7 +49,7 @@ impl GameParser for SingleGame {
         // Will likely create a function that looks at an
         // individual game and then determines with
         // a match statement how many points to ada
-        let games: Vec<&str> = input.split(";").collect();
+        let games: Vec<&str> = input.split(';').collect();
         for hand in games {
             let rgb_in_hand = hand_count(hand);
             if rgb_in_hand[0] > rgb[0] {
@@ -73,7 +68,7 @@ impl GameParser for SingleGame {
 
 fn hand_count(hand: &str) -> [i32; 3] {
     let mut hand_rgb: [i32; 3] = [0, 0, 0];
-    let marble_vals: Vec<&str> = hand.split(",").collect();
+    let marble_vals: Vec<&str> = hand.split(',').collect();
 
     for marble in marble_vals {
         // Get the number here

@@ -1,8 +1,8 @@
 pub use advent_of_code_2023::day01;
-use advent_of_code_2023::day03::data_loading::Day03Data;
-use advent_of_code_2023::day03::BinaryComparison::ContiguousOnes;
+
+
 use advent_of_code_2023::{day02::SingleGame, day04::ScratchCard};
-use nalgebra::{Matrix3, Vector2};
+
 use std::env::current_dir;
 fn main() {
     //day1_soln();l

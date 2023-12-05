@@ -3,6 +3,12 @@ pub struct ContiguousOnes {
     pub hits: Vec<(usize, usize)>,
 }
 
+impl Default for ContiguousOnes {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl ContiguousOnes {
     pub fn new() -> Self {
         Self {

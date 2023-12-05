@@ -1,18 +1,16 @@
 use nalgebra::{DMatrix, SMatrix};
-use std::{collections::binary_heap, fs};
+use std::fs;
 
-use crate::day03::BinaryComparison::ContiguousOnes;
+use crate::day03::binary_comparison::ContiguousOnes;
 #[derive(Debug)]
-pub struct Day03Data {
-    input: Vec<i32>,
-}
+pub struct Day03Data {}
 #[derive(Debug)]
-struct RowHits {
+pub struct RowHits {
     row_idx: usize,
     hits: Vec<usize>,
 }
 impl RowHits {
-    pub fn new(row: usize, list_of_hits: &Vec<usize>) -> Self {
+    pub fn new(row: usize, list_of_hits: &[usize]) -> Self {
         Self {
             row_idx: row,
             hits: list_of_hits.to_vec(),
@@ -20,7 +18,7 @@ impl RowHits {
     }
 }
 impl Day03Data {
-    pub fn binary_input_converter(input: &String, part2: bool) -> Vec<Vec<i32>> {
+    pub fn binary_input_converter(input: &str, part2: bool) -> Vec<Vec<i32>> {
         input
             .lines()
             .map(|line| {
@@ -48,10 +46,14 @@ impl Day03Data {
             let mut good_idxs: Vec<usize> = Vec::new();
             for j in 0..140 {
                 if matrix[(i, j)] == 1 {
-                    // Placeholder
+                    // // Placeholder
+                    #[allow(unused_assignments)]
                     let mut r = i;
+                    #[allow(unused_assignments)]
                     let mut c = j;
+                    #[allow(unused_assignments)]
                     let mut rs = 3;
+                    #[allow(unused_assignments)]
                     let mut cs = 3;
                     if i == 0 {
                         r = i;
@@ -108,9 +110,13 @@ impl Day03Data {
                 for j in 0..cols {
                     if matrix[(i, j)] == 1 {
                         // Placeholder
+                        #[allow(unused_assignments)]
                         let mut r = i;
+                        #[allow(unused_assignments)]
                         let mut c = j;
+                        #[allow(unused_assignments)]
                         let mut rs = 3;
+                        #[allow(unused_assignments)]
                         let mut cs = 3;
                         if i == 0 {
                             r = i;
@@ -143,10 +149,15 @@ impl Day03Data {
             for i in 0..rows {
                 for j in 0..cols {
                     if matrix[(i, j)] == 3 {
+                        #[allow(unused_assignments)]
                         let mut ones_idx: Vec<[i32; 2]> = Vec::new();
+                        #[allow(unused_assignments)]
                         let mut r = i;
+                        #[allow(unused_assignments)]
                         let mut c = j;
+                        #[allow(unused_assignments)]
                         let mut rs = 3;
+                        #[allow(unused_assignments)]
                         let mut cs = 3;
                         if i == 0 {
                             r = i;
@@ -167,10 +178,8 @@ impl Day03Data {
                         } else {
                             c = j - 1;
                         }
-                        ones_idx =
-                            find_ones_in3x3_matrix(matrix.view((r, c), (rs, cs)).clone().into());
-                        let ones_rows: Vec<i32> = ones_idx.iter().map(|e| e[0]).collect();
-                        let mut total_hits: usize = 0;
+                        ones_idx = find_ones_in3x3_matrix(matrix.view((r, c), (rs, cs)).into());
+                        let _ones_rows: Vec<i32> = ones_idx.iter().map(|e| e[0]).collect();
                         if i <= 5 {
                             println!("=======================");
                         }
@@ -204,7 +213,6 @@ impl Day03Data {
                                     vec_of_contig_ones[r + ones[0] as usize].hits
                                 );
                             }
-                            total_hits += vec_of_contig_ones[r + ones[0] as usize].hits.len();
                         }
                         println!("ALL UNIQUE HITS: {:?}", all_unique_hits);
                         println!("TOTAL HITS: {:?}", all_unique_hits.len());
@@ -254,8 +262,7 @@ impl Day03Data {
             total_sum += contig_ones.determine_sum_from_hits(str_input_as_lines[idx]);
         }
         println!("TOTAL SUM: {:?}", total_sum);
-        let din: Vec<i32> = Vec::new();
-        Ok(Self { input: din })
+        Ok(Self {})
     }
 }
 
