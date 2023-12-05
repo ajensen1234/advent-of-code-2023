@@ -48,6 +48,9 @@ impl ContiguousOnes {
             self.hits.extend(new);
         }
     }
+    pub fn clear_hits(&mut self) {
+        self.hits.retain(|_| false);
+    }
     pub fn determine_sum_from_hits(&self, input_str: &str) -> i32 {
         let mut sum = 0;
         for hit in &self.hits {
