@@ -1,4 +1,4 @@
-use nalgebra::{Matrix3, SMatrix};
+use nalgebra::SMatrix;
 
 use std::fs;
 
@@ -23,6 +23,7 @@ impl RowHits {
 impl Day03Data {
     pub fn new(data_path: &str) -> Result<Self, std::io::Error> {
         let input = fs::read_to_string(data_path)?;
+        let str_input_as_lines: Vec<&str> = input.lines().collect();
         let binary_input: Vec<Vec<i32>> = input
             .lines()
             .map(|line| {
@@ -30,7 +31,7 @@ impl Day03Data {
                     .map(|e| {
                         if e.is_numeric() {
                             1
-                        } else if (e == '.') {
+                        } else if e == '.' {
                             0
                         } else {
                             2
@@ -76,22 +77,24 @@ impl Day03Data {
                     }
                     if matrix.view((r, c), (rs, cs)).amax() == 2 {
                         good_idxs.push(j);
-                        if i == 0 {
-                            println!("Index {} on row {}", j, i);
-                        }
                     }
                 }
             }
             let curr_row_hits: RowHits = RowHits::new(i, &good_idxs);
             rowhits.push(curr_row_hits);
         }
-        println!("Rowhits!: {:?}", rowhits[1]);
-        let mut contigs_ones_testing = ContiguousOnes::new();
-        contigs_ones_testing.find_contiguous_ones(&binary_input[5]);
-        println!("Bin Input: {:?}", binary_input[5]);
-        println!("Testing first line: {:?}", contigs_ones_testing.groups);
-        // trying out some matrix multiplication
-        println!("Matrix: {}", submat.amax());
+        let mut total_sum: i32 = 0;
+        for rowhit in rowhits {
+            let idx = rowhit.row_idx;
+            let hits = rowhit.hits;
+            let bin_in = &binary_input[idx];
+            let mut contig_ones = ContiguousOnes::new();
+            contig_ones.find_contiguous_ones(bin_in);
+            contig_ones.find_hits(hits);
+
+            total_sum += contig_ones.determine_sum_from_hits(str_input_as_lines[idx]);
+        }
+        println!("TOTAL SUM: {:?}", total_sum);
         let din: Vec<i32> = Vec::new();
         Ok(Self { input: din })
     }

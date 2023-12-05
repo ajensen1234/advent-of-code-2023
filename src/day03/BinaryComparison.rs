@@ -29,7 +29,7 @@ impl ContiguousOnes {
             }
         }
 
-        if current_group_start != 0 {
+        if in_group {
             self.groups.push((current_group_start, arr.len()));
         }
     }
@@ -47,5 +47,23 @@ impl ContiguousOnes {
             }
             self.hits.extend(new);
         }
+    }
+    pub fn determine_sum_from_hits(&self, input_str: &str) -> i32 {
+        let mut sum = 0;
+        for hit in &self.hits {
+            let num: String = input_str
+                .chars()
+                .enumerate()
+                .filter_map(|(i, c)| {
+                    if i >= hit.0 && i <= hit.1 {
+                        Some(c)
+                    } else {
+                        None
+                    }
+                })
+                .collect();
+            sum += num.parse::<i32>().unwrap();
+        }
+        sum
     }
 }
